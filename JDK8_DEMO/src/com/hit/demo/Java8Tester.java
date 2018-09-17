@@ -34,7 +34,7 @@ public class Java8Tester {
 
         //绝对值
         System.out.println(Math.abs(1.3-5.6));
-        System.out.println("123");
+        System.out.println("123sdfsfs");
 
     }
     // 使用 java 7 排序

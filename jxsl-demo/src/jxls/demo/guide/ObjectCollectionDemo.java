@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import common.utils.JxlsUtils;
 
 /**
+ * 这是主程序
  * Object collection output demo
  * @author Leonid Vysochyn
  */

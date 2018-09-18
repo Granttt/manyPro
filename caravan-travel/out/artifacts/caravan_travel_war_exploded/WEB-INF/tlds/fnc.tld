@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description>JSTL 1.1 functions library</description>
+	<display-name>JSTL functions cms</display-name>
+	<tlib-version>1.1</tlib-version>
+	<short-name>fnc</short-name>
+	<uri>http://java.sun.com/jsp/jstl/functionsc</uri>
+
+	<function>
+		<description>获取当前管理站点编号</description>
+		<name>getCurrentSiteId</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.entity.Site</function-class>
+		<function-signature>java.lang.String getCurrentSiteId()</function-signature>
+		<example>${fnc:getCurrentSiteId()}</example>
+	</function>
+
+	<function>
+		<description>获取站点</description>
+		<name>getSite</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>com.thinkgem.jeesite.entity.cms.Site getSite(java.lang.String)</function-signature>
+		<example>${fnc:getSite(siteId)}</example>
+	</function>
+
+	<function>
+		<description>获取站点列表</description>
+		<name>getSiteList</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getSiteList()</function-signature>
+		<example>${fnc:getSiteList()}</example>
+	</function>
+
+	<function>
+		<description>获取主导航列表</description>
+		<name>getMainNavList</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getMainNavList(java.lang.String)</function-signature>
+		<example>${fnc:getMainNavList(siteId)}</example>
+	</function>
+
+	<function>
+		<description>获取栏目</description>
+		<name>getCategory</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>com.thinkgem.jeesite.entity.cms.Category getCategory(java.lang.String)</function-signature>
+		<example>${fnc:getCategory(categoryId)}</example>
+	</function>
+
+
+
+	<function>
+		<description>获取父亲栏目</description>
+		<name>getParentCategory</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>com.thinkgem.jeesite.entity.cms.Category getParentCategory(java.lang.String)</function-signature>
+		<example>${fnc:getParentCategory(categoryId)}</example>
+	</function>
+
+	<function>
+		<description>获得栏目列表</description>
+		<name>getCategoryList</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getCategoryList(java.lang.String, java.lang.String, int, java.lang.String)</function-signature>
+		<example>${fnc:getCategoryList(siteId, parentId, number, param)}</example>
+	</function>
+	
+	<function>
+		<description>获得栏目列表</description>
+		<name>getCategoryListByIds</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getCategoryListByIds(java.lang.String)</function-signature>
+		<example>${fnc:getCategoryListByIds(categoryIds)}</example>
+	</function>
+
+	<function>
+		<description>获取文章</description>
+		<name>getArticle</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>com.thinkgem.jeesite.entity.cms.Article getArticle(java.lang.String)</function-signature>
+		<example>${fnc:getArticle(articleId)}</example>
+	</function>
+
+	<function>
+		<description>获取文章列表</description>
+		<name>getArticleList</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getArticleList(java.lang.String, java.lang.String, int, java.lang.String)</function-signature>
+		<example>${fnc:getArticleList(siteId, categoryId, number, param)}</example>
+	</function>
+
+	<function>
+		<description>获取链接</description>
+		<name>getLink</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>com.thinkgem.jeesite.entity.cms.Link getLink(java.lang.String)</function-signature>
+		<example>${fnc:getLink(linkId)}</example>
+	</function>
+
+	<function>
+		<description>获取链接列表</description>
+		<name>getLinkList</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getLinkList(java.lang.String, java.lang.String, int, java.lang.String)</function-signature>
+		<example>${fnc:getLinkList(siteId, categoryId, number, param)}</example>
+	</function>
+
+	<function>
+		<description>获取焦点资源</description>
+		<name>getFocusList</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getFocusList(java.lang.String, int)</function-signature>
+		<example>${fnc:getFocusList(positionid,number)}</example>
+	</function>
+
+	<function>
+		<description>获取category</description>
+		<name>getAllCategoryList</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.Map getAllCategoryList()</function-signature>
+		<example>${fnc:getAllCategoryList()</example>
+	</function>
+
+	<function>
+		<description>获取页面内部左侧的Category</description>
+		<name>getLeftCategory</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getLeftCategory(java.lang.String )</function-signature>
+		<example>${fnc:getLeftCategory}</example>
+	</function>
+
+	<function>
+		<description>获取面包屑</description>
+		<name>getCrumbs</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getCrumbs(java.lang.String)</function-signature>
+		<example>${fnc:getCrumbs}</example>
+	</function>
+
+
+	<function>
+		<description>判断是否有子Category,若有则获取</description>
+		<name>getDownCategory</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getDownCategory(java.lang.String)</function-signature>
+		<example>${getDownCategory}</example>
+	</function>
+
+
+	<function>
+		<description>获取文章所有的信息</description>
+		<name>getArticleAllInfo</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>com.thinkgem.jeesite.entity.cms.Article getArticleAllInfo(java.lang.String)</function-signature>
+		<example>${fnc:getArticleAllInfo(CategoryId)}</example>
+	</function>
+
+	<!-- 获得第一个视频在页面上展示 -->
+	<function>
+		<description>获取第一个video</description>
+		<name>getFirstVideo</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>com.thinkgem.jeesite.modules.enterprise.entity.BxVideo getFirstVideo()</function-signature>
+		<example>${fnc:getFirstVideo()}</example>
+	</function>
+
+	<function>
+		<description>获得网站静态常量</description>
+		<name>getConstByUni</name>
+		<function-class>com.thinkgem.jeesite.modules.enterprise.util.EnterpriseUtils</function-class>
+		<function-signature>java.lang.String getConstByUni(java.lang.String)</function-signature>
+		<example>${fnc:getConstByUni("telphone")}</example>
+	</function>
+	
+	  <function>
+    	<description>获取第一个轮播图</description>
+    	<name>getFirstSlide</name>
+    	<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+    	<function-signature>java.util.List getFirstSlide(java.lang.String)</function-signature>
+    	<example>${fnc:getFirstSlide(categroyId)}</example>
+    </function>
+    <!--自定义  -->
+    <function>
+		<description>获取文章列表</description>
+		<name>getArticleLists</name>
+		<function-class>com.thinkgem.jeesite.modules.cms.utils.CmsUtils</function-class>
+		<function-signature>java.util.List getArticleLists(java.lang.String)</function-signature>
+		<example>${fnc:getArticleLists(categroyId)}</example>
+	</function>
+	<!--自定义  -->
+    
+	
+	
+</taglib>

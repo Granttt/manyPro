@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysWebConstDao">
+
+	<cache flushInterval="300000" eviction="FIFO" type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    
+	<sql id="sysWebConstColumns">
+		a.id AS "id",
+		a.constuniq AS "constuniq",
+		a.constkey AS "constkey",
+		a.keytype AS "keytype",
+		a.constvalue AS "constvalue",
+		a.constmark AS "constmark"
+	</sql>
+	
+	<sql id="sysWebConstJoins">
+	</sql>
+    
+	<select id="get" resultType="SysWebConst">
+		SELECT 
+			<include refid="sysWebConstColumns"/>
+		FROM sys_web_const a
+		<include refid="sysWebConstJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getConst" resultType="SysWebConst">
+		SELECT 
+			<include refid="sysWebConstColumns"/>
+		FROM sys_web_const a
+		<include refid="sysWebConstJoins"/>
+		WHERE a.constuniq = #{constuniq}
+	</select>
+	
+	
+	<select id="findList" resultType="SysWebConst">
+		SELECT 
+			<include refid="sysWebConstColumns"/>
+		FROM sys_web_const a
+		<include refid="sysWebConstJoins"/>
+		<where>
+			
+			<if test="constuniq != null and constuniq != ''">
+				AND a.constuniq = #{constuniq}
+			</if>
+			<if test="constkey != null and constkey != ''">
+				AND a.constkey LIKE 
+					<if test="dbName == 'oracle'">'%'||#{constkey}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{constkey}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{constkey},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysWebConst">
+		SELECT 
+			<include refid="sysWebConstColumns"/>
+		FROM sys_web_const a
+		<include refid="sysWebConstJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_web_const(
+			constuniq,
+			constkey,
+			keytype,
+			constvalue,
+			constmark
+		) VALUES (
+			#{constuniq},
+			#{constkey},
+			#{keytype},
+			#{constvalue},
+			#{constmark}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_web_const SET 	
+			constuniq = #{constuniq},
+			constkey = #{constkey},
+			keytype = #{keytype},
+			constvalue = #{constvalue},
+			constmark = #{constmark}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_web_const
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

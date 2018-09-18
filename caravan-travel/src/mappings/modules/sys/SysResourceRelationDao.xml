@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysResourceRelationDao">
+	<cache flushInterval="300000" eviction="FIFO" type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+	<resultMap type="SysResourceRelation" id="get_rel_sysMidiaResource">
+	
+		<id column="id" property="id" />
+		<result column="positionid" property="positionid"/>
+		<result column="resourceid" property="resourceid"/>
+		<result column="datetime" property="datetime"/>
+		
+		<!-- 映射关联的对象 -->
+		<association property="sysMidiaResource" javaType="SysMediaResource">
+			<id column="id" property="id"/>
+			<result column="resourcename" property="resourcename"/>
+			<result column="resourceurl" property="resourceurl"/>
+			<result column="resourcetype" property="resourcetype"/>
+			<result column="resourcedesc" property="resourcedesc"/>
+			<result column="hrefurl" property="hrefurl"/>
+		</association>
+		
+	</resultMap>
+    
+	<sql id="sysResourceRelationColumns">
+		a.id AS "id",
+		a.positionid ,
+		a.resourceid ,
+		a.datetime,
+		b.`resourcename` ,
+		b.`resourcedesc` ,
+		b.`resourceurl`,
+		b.`hrefurl`
+	</sql>
+	
+	<sql id="sysResourceRelationJoins">
+		LEFT JOIN `sys_focus_resource` b ON a.`resourceid` =  b.`id`
+	</sql>
+    
+	<select id="get" resultMap="get_rel_sysMidiaResource">
+		SELECT 
+			<include refid="sysResourceRelationColumns"/>
+		FROM sys_focus_relation a
+			<include refid="sysResourceRelationJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findByTag" resultMap="get_rel_sysMidiaResource">
+		SELECT 
+			<include refid="sysResourceRelationColumns"/>
+		FROM sys_focus_relation a
+		<include refid="sysResourceRelationJoins"/>
+		<where >
+			<if test="positionid != null and positionid != ''">
+				AND a.positionid = #{positionid}
+			</if>
+			 ORDER BY b.createDate
+			 limit 0,#{num}
+		</where>
+	</select>
+	
+	<select id="findList" resultMap="get_rel_sysMidiaResource">
+		SELECT 
+			<include refid="sysResourceRelationColumns"/>
+		FROM sys_focus_relation a
+		<include refid="sysResourceRelationJoins"/>
+		<where >
+			<if test="positionid != null and positionid != ''">
+				AND a.positionid = #{positionid}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.datetime DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultMap="get_rel_sysMidiaResource">
+		SELECT 
+			<include refid="sysResourceRelationColumns"/>
+		FROM sys_focus_relation a
+		<include refid="sysResourceRelationJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.datetime DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_focus_relation(
+			id,
+			positionid,
+			resourceid
+		) VALUES (
+			#{id},
+			#{positionid},
+			#{resourceid}
+		)
+	</insert>
+	
+	<insert id ="insertBatch" parameterType="List" > 
+	   	INSERT INTO sys_focus_relation(
+			id,
+			positionid,
+			resourceid
+		) VALUES
+	    <foreach collection ="list" item ="item" index ="index" separator=","> 
+	       (#{item.id},
+	       #{item.positionid},
+	       #{item.resourceid})
+	    </foreach> 
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_focus_relation SET 	
+			positionid = #{positionid},
+			resourceid = #{resourceid}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_focus_relation
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

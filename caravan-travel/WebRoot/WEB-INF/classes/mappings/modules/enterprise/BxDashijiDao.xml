@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.enterprise.dao.CompanyHistoryDao">
+    <cache flushInterval="300000" eviction="FIFO" type="org.mybatis.caches.ehcache.EhcacheCache"/>
+	<sql id="bxDashijiColumns">
+		a.id AS "id",
+		a.dsjtitle AS "dsjtitle",
+		a.dsjyear AS "dsjyear",
+		a.dsjdate AS "dsjdate",
+		a.dsjpic AS "dsjpic",
+		a.dsjcontent AS "dsjcontent"
+	</sql>
+	
+	<sql id="bxDashijiJoins">
+	</sql>
+    
+	<select id="get" resultType="BxDashiji">
+		SELECT 
+			<include refid="bxDashijiColumns"/>
+		FROM bx_dashiji a
+		<include refid="bxDashijiJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="BxDashiji">
+		SELECT 
+			<include refid="bxDashijiColumns"/>
+		FROM bx_dashiji a
+		<include refid="bxDashijiJoins"/>
+		<where>
+			
+			<if test="dsjtitle != null and dsjtitle != ''">
+				AND a.dsjtitle LIKE 
+					<if test="dbName == 'oracle'">'%'||#{dsjtitle}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{dsjtitle}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{dsjtitle},'%')</if>
+			</if>
+			<if test="dsjyear != null and dsjyear != ''">
+				AND a.dsjyear = #{dsjyear}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="BxDashiji">
+		SELECT 
+			<include refid="bxDashijiColumns"/>
+		FROM bx_dashiji a
+		<include refid="bxDashijiJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bx_dashiji(
+			dsjtitle,
+			dsjyear,
+			dsjdate,
+			dsjpic,
+			dsjcontent
+		) VALUES (
+			#{dsjtitle},
+			#{dsjyear},
+			#{dsjdate},
+			#{dsjpic},
+			#{dsjcontent}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bx_dashiji SET 	
+			dsjtitle = #{dsjtitle},
+			dsjyear = #{dsjyear},
+			dsjdate = #{dsjdate},
+			dsjpic = #{dsjpic},
+			dsjcontent = #{dsjcontent}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM bx_dashiji
+		WHERE id = #{id}
+	</update> 
+	
+	<select id="selectAll" resultType="BxDashiji">
+		Select * from bx_dashiji ORDER BY dsjyear ASC
+	</select>
+</mapper>

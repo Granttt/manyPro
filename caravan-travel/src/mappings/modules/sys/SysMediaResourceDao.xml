@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysMediaResourceDao">
+    <cache flushInterval="300000" eviction="FIFO" type="org.mybatis.caches.ehcache.EhcacheCache"/>
+	<sql id="sysMediaResourceColumns">
+		a.id AS "id",
+		a.resourcename AS "resourcename",
+		a.resourcetype AS "resourcetype",
+		a.resourceurl AS "resourceurl",
+		a.resourcedesc AS "resourcedesc",
+		a.hrefurl AS "hrefurl",
+		a.createDate AS "createDate"
+	</sql>
+	
+	<sql id="sysMediaResourceJoins">
+	</sql>
+    
+	<select id="get" resultType="SysMediaResource">
+		SELECT 
+			<include refid="sysMediaResourceColumns"/>
+		FROM sys_focus_resource a
+		<include refid="sysMediaResourceJoins"/>
+		WHERE a.id = #{id}
+		
+	</select>
+	
+	<select id="findList" resultType="SysMediaResource">
+		SELECT 
+			<include refid="sysMediaResourceColumns"/>
+		FROM sys_focus_resource a
+		<include refid="sysMediaResourceJoins"/>
+		<where>
+			
+			<if test="resourcename != null and resourcename != ''">
+				AND a.resourcename LIKE 
+					<if test="dbName == 'oracle'">'%'||#{resourcename}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{resourcename}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{resourcename},'%')</if>
+			</if>
+			<if test="resourcetype != null and resourcetype != ''">
+				AND a.resourcetype = #{resourcetype}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				 ORDER BY a.createDate
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysMediaResource">
+		SELECT 
+			<include refid="sysMediaResourceColumns"/>
+		FROM sys_focus_resource a
+		<include refid="sysMediaResourceJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			 ORDER BY a.createDate DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_focus_resource(
+			id,
+			resourcename,
+			resourcetype,
+			resourceurl,
+			resourcedesc,
+			hrefurl,
+			createDate
+		) VALUES (
+			#{id},
+			#{resourcename},
+			#{resourcetype},
+			#{resourceurl},
+			#{resourcedesc},
+			#{hrefurl},
+			#{createDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_focus_resource SET 	
+			resourcename = #{resourcename},
+			resourcetype = #{resourcetype},
+			resourceurl = #{resourceurl},
+			resourcedesc = #{resourcedesc},
+			hrefurl = #{hrefurl},
+			createDate = #{createDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_focus_resource
+		WHERE id = #{id}
+	</update>
+</mapper>

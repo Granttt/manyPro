@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.sys.dao.SysResourcePositionDao">
+
+    <cache flushInterval="300000" eviction="FIFO" type="org.mybatis.caches.ehcache.EhcacheCache"/>
+	<sql id="sysResourcePositionColumns">
+		a.id AS "id",
+		a.position_name AS "positionName",
+		a.position_desc AS "positionDesc",
+		a.position_width AS "positionWidth",
+		a.position_height AS "positionHeight"
+	</sql>
+	
+	<sql id="sysResourcePositionJoins">
+	</sql>
+    
+	<select id="get" resultType="SysResourcePosition">
+		SELECT 
+			<include refid="sysResourcePositionColumns"/>
+		FROM sys_focus_resource_position a
+		<include refid="sysResourcePositionJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SysResourcePosition">
+		SELECT 
+			<include refid="sysResourcePositionColumns"/>
+		FROM sys_focus_resource_position a
+		<include refid="sysResourcePositionJoins"/>
+		<where>
+			<if test="positionName != null and positionName != ''">
+				AND a.position_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{positionName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{positionName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{positionName},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SysResourcePosition">
+		SELECT 
+			<include refid="sysResourcePositionColumns"/>
+		FROM sys_focus_resource_position a
+		<include refid="sysResourcePositionJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_focus_resource_position(
+			id,
+			position_name,
+			position_desc,
+			position_width,
+			position_height
+		) VALUES (
+			#{id},
+			#{positionName},
+			#{positionDesc},
+			#{positionWidth},
+			#{positionHeight}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE sys_focus_resource_position SET 	
+			position_name = #{positionName},
+			position_desc = #{positionDesc},
+			position_width = #{positionWidth},
+			position_height = #{positionHeight}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM sys_focus_resource_position
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

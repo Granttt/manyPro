@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.cms.dao.CmsSlideDao">
+    <cache flushInterval="300000" eviction="FIFO" type="org.mybatis.caches.ehcache.EhcacheCache"/>
+	<sql id="cmsSlideColumns">
+		a.id AS "id",
+		a.imagename AS "imagename",
+		a.sort as "sort",
+		a.imageurl AS "imageurl",
+		a.imagetitle AS "imagetitle",
+		a.imagehref AS "imagehref",
+		a.imagedesc AS "imagedesc",
+		a.categoryid AS "categoryid",
+		a.createt_time AS "createDate",
+		a.homeView AS "homeView"
+	</sql>
+	
+	<sql id="cmsSlideJoins">
+	</sql>
+    
+	<select id="get" resultType="CmsSlide">
+		SELECT 
+			<include refid="cmsSlideColumns"/>
+		FROM cms_slide a
+		<include refid="cmsSlideJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="CmsSlide">
+		SELECT 
+			<include refid="cmsSlideColumns"/>
+		FROM cms_slide a
+		<include refid="cmsSlideJoins"/>
+		<where>
+			<if test="imagename != null and imagename != ''">
+				AND a.imagename LIKE 
+					<if test="dbName == 'oracle'">'%'||#{imagename}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{imagename}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{imagename},'%')</if>
+			</if>
+			<if test="categoryid != null and categoryid != ''">
+				AND a.categoryid = #{categoryid}
+			</if>
+			<if test="homeView != null and homeView != ''">
+				AND a.homeView = #{homeView}
+			</if>
+		</where>
+		ORDER BY `sort`
+		<!-- <choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose> -->
+	</select>
+	
+	<select id="findAllList" resultType="CmsSlide">
+		SELECT 
+			<include refid="cmsSlideColumns"/>
+		FROM cms_slide a
+		<include refid="cmsSlideJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO cms_slide(
+			id,
+			imagename,
+			imageurl,
+			imagetitle,
+			imagehref,
+			imagedesc,
+			`sort`,
+			categoryid,
+			createt_time,
+			homeView
+		) VALUES (
+			#{id},
+			#{imagename},
+			#{imageurl},
+			#{imagetitle},
+			#{imagehref},
+			#{imagedesc},
+			#{sort},
+			#{categoryid},
+			#{createDate},
+			#{homeView}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE cms_slide SET 	
+			imagename = #{imagename},
+			imageurl = #{imageurl},
+			imagetitle = #{imagetitle},
+			imagehref = #{imagehref},
+			sort = #{sort},
+			imagedesc = #{imagedesc},
+			categoryid = #{categoryid},
+			createt_time = #{createDate},
+			homeView = #{homeView}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM cms_slide
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

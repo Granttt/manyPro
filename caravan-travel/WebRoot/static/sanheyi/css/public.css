@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* CSS Document 通用样式 */
+/*全局控制*/
+*{ padding:0; margin:0;}
+body{ font-family:"微软雅黑","宋体","Arial"; font-size:12px;}
+/*清除浏览器默认样式*/
+p,h1,h2,h3,h4,h5,h6,span,ul,li,dl,dt,dd,ol,li,input,img,a,span,iframe{ padding:0; margin:0; list-style:none; border:0; outline:none;}/* outline:none;轮廓*/
+i,b{ font-family:Arial, Helvetica, sans-serif; font-weight:normal; padding:0; margin:0;}
+/*文字字体为Tahoma，如果用户电脑里面没有这个字体，就使用Arial作为字体，以此类推，最后的Sans-serif一般是所有电脑都有的。这种写法主要是避免因为用户电脑里面没有某种字体而导致的显示不美观的情况/
+ font-weight:normal; 字体的粗细*/
+a{ text-decoration:none;}
+/*去掉超链接下划线*/
+a:hover{ text-decoration:none;}
+img{border:0;}
+.clear{clear: both;}
+/*vertical-align: middle; 垂直居中代码
+ text-indent:2em; 首行缩进
+ text-overflow:ellipsis; white-space:nowrap; overflow:hidden;  溢出出现省略号
+*/
+
+
+
+/* header
+-----------------------------*/
+.top{width: 100%; height: 30px; background:  url(../images/top_bg.png) 0 0 no-repeat; min-width: 1200px;}
+.top_con{width: 1200px; height: 30px; margin:0 auto; }
+.top_con_l{width: 600px; height: 30px; float:left; line-height: 30px; color:#f3f3f3; font-family:"宋体";}
+.top_con_r{width: 600px; height: 30px; float:right; line-height: 30px; color:#f3f3f3; font-family:"宋体"; text-align: right;}
+.top_con_r a{color:#f3f3f3; font-family:"宋体";}
+.head{width: 1200px; height:114px; margin:0 auto;}
+.logo{width: 228px; height: 96px; float:left; padding-top:18px;}
+.nav1{width: 600px; height:84px; float:right; padding-top:30px;}
+
+/*nav*/
+.nav{width:600px;position:relative;z-index:10; height: 84px;}
+.nav ul{/* margin-right:-8px; */height:80px;}
+.nav .li{float:left;width:20%;z-index:10;height:80px;line-height:80px; position: relative;}
+.nav .li a{font-size:16px; color:#333;}
+.nav .li a:hover{color:#479d1d;}
+.nav_cell{display:block;text-align:center;}
+.nav_block{bottom:0;height:4px;left:0;overflow:hidden;width:100%;z-index:-1;}
+.nav_line{background:url("../images/nav_bg.png") repeat;bottom:0;height:4px;left:0;overflow:hidden;width:100%;}
+.box{width: 113px; height:auto; position: absolute; top:84px; background: #fff; z-index: 100; display:none;}
+.box a{font-size:14px; color:#666; height:42px; border-bottom:1px dashed #ddd; display:block; text-align: center; line-height: 42px;}
+.current1{color:#479d1d !important;}
+/*----END-----*/
+
+/* footer
+-----------------------------*/
+.footer{width:100%; height:220px; min-width:1200px;}
+.footer1{width:100%; height:220px; background:#333;min-width:1200px;}
+.footer2{width:100%; height:46px; background:#292929;min-width:1200px;}
+.f1_con{width: 1200px; height:220px; margin:0 auto;}
+.f2_con{width: 1200px; height:46px; margin:0 auto; color:#636363; font-size: 14px; line-height:46px; text-align: center;}
+.f1_con1{width:600px; height: 220px; float:left;}
+.f_link{background: url(../images/f_p.png) left center no-repeat; width:480px;height: 26px; line-height: 26px; padding-left:37px; margin-top:30px;}
+.f_link a{font-size:14px; color:#999; margin-right:34px;}
+.f_link a:hover{color:#e5e5e5;}
+.f_line{margin-top: 20px;}
+.phone1{font-size:14px; color:#999;margin-top: 19px;}
+.phone2{background: url(../images/phone.png) left center no-repeat; height:54px; width:310px; padding-left:60px; color:#999; font-size:36px; line-height:54px; margin-top: 20px;}
+.f1_con2{width:435px; float:left; height: 220px; margin-left:33px;}
+.foot_ul{width: 340px; height:60px; margin-top: 36px;}
+.foot_ul a{display:block;width:60px; height: 60px;}
+.foot_li0{ font-size:14px; color:#999; line-height: 60px; float:left;}
+.foot_li1{width:60px; height: 60px; background: url(../images/w1.png) 0 0 no-repeat; margin-left:20px; float:left;}
+.foot_li1:hover{width:60px; height: 60px; background: url(../images/w2.png) 0 0 no-repeat;}
+.foot_li2{width:60px; height: 60px; background: url(../images/q1.png) 0 0 no-repeat; margin-left:20px; float:left;}
+.foot_li2:hover{width:60px; height: 60px; background: url(../images/q2.png) 0 0 no-repeat;}
+.foot_li3{width:60px; height: 60px; background: url(../images/x1.png) 0 0 no-repeat; margin-left:20px; float:left;}
+.foot_li3:hover{width:60px; height: 60px; background: url(../images/x2.png) 0 0 no-repeat;}
+.f_c2_txt{font-size:14px; color:#999; margin-top: 50px;}
+.f_c2_txt2{font-size:14px; color:#999; margin-top: 37px;}
+.f_c2_txt2 a{color:#999;}
+.f1_con3{width: 130px; height: 220px; float:right;}
+.code{ margin-top: 36px; }
+.code_txt{font-size:14px; color:#999; line-height: 30px; text-align: center;}
+/*----END-----*/

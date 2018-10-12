@@ -33,7 +33,8 @@ public class Area extends TreeEntity<Area> {
 	
 //	@JsonBackReference
 //	@NotNull
-	public Area getParent() {
+	@SuppressWarnings("AlibabaCommentsMustBeJavadocFormat")
+    public Area getParent() {
 		return parent;
 	}
 

@@ -22,6 +22,10 @@ import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
 import com.thinkgem.jeesite.modules.cms.service.CategoryService;
 
+/**
+ * @author Administrator
+ */
+@SuppressWarnings({"ALL", "AlibabaClassMustHaveAuthor"})
 @Controller
 @RequestMapping(value = "${frontPath}")
 public class AboutController extends BaseController {

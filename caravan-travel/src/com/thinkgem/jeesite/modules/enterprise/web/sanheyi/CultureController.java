@@ -1,8 +1,6 @@
 package com.thinkgem.jeesite.modules.enterprise.web.sanheyi;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,14 +17,15 @@ import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Article;
 import com.thinkgem.jeesite.modules.cms.entity.ArticleData;
 import com.thinkgem.jeesite.modules.cms.entity.Category;
-import com.thinkgem.jeesite.modules.cms.entity.CmsSlide;
 import com.thinkgem.jeesite.modules.cms.entity.MessageBoard;
 import com.thinkgem.jeesite.modules.cms.service.ArticleDataService;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
 import com.thinkgem.jeesite.modules.cms.service.CategoryService;
-import com.thinkgem.jeesite.modules.cms.service.CmsSlideService;
 import com.thinkgem.jeesite.modules.cms.service.MessageBoardService;
 
+/**
+ * @author Administrator
+ */
 @Controller
 @RequestMapping(value = "${frontPath}")
 public class CultureController extends BaseController{
@@ -69,11 +68,17 @@ public class CultureController extends BaseController{
 		map.put("message",messageBoard);
 		return renderString(response, map);
 	}
-	
-	
-	//企业宗旨精神
+
+
+	/**企业宗旨精神
+	 * 功能描述：
+	 * @author chenmc
+	 * @date 2018/9/20 10:50
+	 * @param
+	 * @return
+	 */
 	@RequestMapping(value="mission/{child}.html")
-	public ModelAndView mission(HttpServletRequest request, HttpServletResponse response,@PathVariable String child) {
+	ModelAndView mission(HttpServletRequest request, HttpServletResponse response, @PathVariable String child) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String imageUrl = publicController.selectImage(child);
 		Category cat  = new Category();
